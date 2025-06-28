@@ -1,0 +1,130 @@
+---
+import BasicLayout from "../layouts/BasicLayout.astro";
+---
+
+<BasicLayout title="Combinatory Poetry">
+  <h1>
+    <span>It's a</span>
+    <div class="sketch-frame">
+      <iframe
+        class="sketch adjective"
+        src="https://editor.p5js.org/niktari/full/QpmP67KT8"
+        width="800px"
+        height="400px"></iframe>
+    </div>
+    <span>day at TypeLab 2025. Our</span>
+    <div class="sketch-frame">
+      <iframe
+        class="sketch noun"
+        src="https://editor.p5js.org/niktari/full/QpmP67KT8"
+        width="800px"
+        height="400px"></iframe>
+    </div>
+    <span>is working.</span>
+    <span>It's a</span>
+    <div class="sketch-frame">
+      <iframe
+        class="sketch adjective"
+        src="https://editor.p5js.org/niktari/full/QpmP67KT8"
+        width="800px"
+        height="400px"></iframe>
+    </div>
+    <span>day at TypeLab 2025. Our</span>
+    <div class="sketch-frame">
+      <iframe
+        class="sketch noun"
+        src="https://editor.p5js.org/niktari/full/QpmP67KT8"
+        width="800px"
+        height="400px"></iframe>
+    </div>
+    <span>is working.</span>
+    <span>It's a</span>
+    <div class="sketch-frame">
+      <iframe
+        class="sketch adjective"
+        src="https://editor.p5js.org/niktari/full/QpmP67KT8"
+        width="800px"
+        height="400px"></iframe>
+    </div>
+    <span>day at TypeLab 2025. Our</span>
+    <div class="sketch-frame">
+      <iframe
+        class="sketch noun"
+        src="https://editor.p5js.org/niktari/full/QpmP67KT8"
+        width="800px"
+        height="400px"></iframe>
+    </div>
+    <span>is working.</span>
+  </h1>
+  <style>
+    h1 {
+      align-items: center;
+      font-size: 72px;
+      gap: 12px;
+      font-family: "Helvetica";
+      letter-spacing: -0.03em;
+      width: 100%;
+      font-weight: normal;
+      line-height: 3;
+    }
+
+    span,
+    div {
+      vertical-align: middle;
+    }
+
+    .sketch-frame {
+      position: relative;
+      display: inline-block;
+      width: 395px;
+      height: 170px;
+      overflow: hidden;
+    }
+
+    .sketch {
+      position: absolute;
+      left: -52%;
+      top: calc(-50% - 42px);
+      transform: scale(0.5);
+    }
+  </style>
+  <script>
+    let sheetID = "1-rGe4Pay2CRDUrB7O4yqEvgaQsd2ePNPdxqOejpIjMM";
+    let tabName = "Sheet1";
+    let myURL = `https://opensheet.elk.sh/${sheetID}/${tabName}`;
+
+    let adjs = document.querySelectorAll(".adjective");
+    let nouns = document.querySelectorAll(".noun");
+
+    async function getData() {
+      try {
+        let response = await fetch(myURL);
+        let data = await response.json();
+
+        let adjectiveData = data.filter(
+          (item) => item.wordClass === "adjective"
+        );
+        let nounData = data.filter((item) => item.wordClass === "noun");
+
+        generateSketches(adjs, adjectiveData);
+        generateSketches(nouns, nounData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function generateSketches(elements, wordData) {
+      if (wordData.length === 0) {
+        console.warn("No matching data found.");
+        return;
+      }
+
+      elements.forEach((el) => {
+        let randomItem = wordData[Math.floor(Math.random() * wordData.length)];
+        el.src = randomItem.sketchLink;
+      });
+    }
+
+    getData();
+  </script>
+</BasicLayout>

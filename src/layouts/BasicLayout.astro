@@ -1,0 +1,22 @@
+---
+const { title } = Astro.props;
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <footer>
+      Copyright &copy; {new Date().getFullYear()}
+      <a href="https://munusandniktari.com">Free 99 (Munus & Niktari)</a>. This
+      workshop is part of typographics Type lab 2025
+    </footer>
+  </body>
+</html>

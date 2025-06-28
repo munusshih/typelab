@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/p5@2.0.3/lib/p5.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      cursor: grabbing !important;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    div {
+      user-select: none;
+      cursor: grabbing !important;
+    }
+
+    div:hover {
+      cursor: grabbing !important;
+    }
+  </style>
+  <meta charset="utf-8">
+
+</head>
+
+<body>
+  <main>
+  </main>
+  <script>
+    let font;
+    let panel;
+    let width = window.innerWidth;
+
+    let words = ["Combinatory", "Poetry", "with", "Variable", "Fonts"]
+    let positions = [
+      [0.10, 0.15],  // 10% from left, 15% from top
+      [0.0, 0.35],
+      [0.65, 0.35],
+      [0.35, 0.55],
+      [0.6, 0.75],
+    ];
+
+    function setup() {
+
+      for (let i = 0; i < words.length; i++) {
+        let panel = createDiv(words[i]);
+        panel.draggable?.();
+
+        panel.style('padding', '24px 24px 0 24px');
+        panel.style('font-family', 'Epilogue');
+        panel.style('font-size', 'clamp(2.5rem, 10vw, 10vw)');
+        panel.style('font-weight', '600');
+        panel.style('letter-spacing', '-0.06em');
+        panel.style('line-height', '1');
+        panel.style('text-align', 'left');
+        panel.style('position', 'absolute');
+
+        const [xPercent, yPercent] = positions[i];
+        panel.position(windowWidth * xPercent, windowHeight * yPercent);
+
+        panel.addClass('wordBlock');
+
+        // Styling
+        if (i === 0) {
+          panel.style('background', '#69A8FF');
+        } else if (i === 1) {
+          panel.style('background', '#AFA0FF');
+        } else if (i === 2) {
+          panel.style('font-family', "'Source Serif 4'");
+          panel.style('font-style', "italic");
+          panel.style('background', '#00B371');
+        } else if (i === 3) {
+          panel.style('background', '#FF31FC');
+        } else if (i === 4) {
+          panel.style('background', '#FFD029');
+        }
+      }
+    }
+
+    function draw() {
+      let wordBlocks = document.querySelectorAll(".wordBlock");
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+
+      wordBlocks.forEach((block, index) => {
+        block.style.left = (positions[index][0] * width) + 'px';
+        block.style.top = (positions[index][1] * height) + 'px';
+      });
+
+      wordBlocks.forEach((block, index) => {
+        block.style.fontVariationSettings = "'wght'" + map(sin(frameCount / 30 - index), -1, 1, 400, 800)
+      })
+
+    }
+  </script>
+
+
+</body>
+
+</html>
