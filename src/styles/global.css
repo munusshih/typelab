@@ -3,21 +3,26 @@
 html,
 body {
     background: #EEEEEE;
-    @apply m-auto max-w-[1300px] w-full p-4;
+    @apply m-auto w-full p-4 font-normal leading-none;
+    font-family: "Epilogue", sans-serif;
+    font-optical-sizing: auto;
 }
 
 a {
     @apply underline;
 }
 
-h1 {
-    @apply text-2xl md:text-4xl font-bold mb-4 text-balance max-w-prose;
+h1, .h1 {
+    @apply text-6xl text-balance max-w-prose tracking-tighter leading-none;
 }
 
-h2 {
-    @apply text-lg md:text-xl mt-8 text-pretty max-w-prose font-bold;
+h2, .h2 {
+    @apply text-2xl text-pretty max-w-prose tracking-tight leading-[1.2];
 }
 
+h3, .h3 {
+    @apply uppercase font-medium;
+}
 p {
     @apply text-lg mb-4 text-pretty max-w-prose;
 }
@@ -27,15 +32,15 @@ hr {
 }
 
 ul {
-    @apply flex flex-wrap gap-x-4 gap-y-4 my-10;
+    @apply flex flex-wrap gap-x-2.5 gap-y-4;
 }
 
 li {
-    @apply bg-white text-2xl font-bold px-4 py-4 text-center relative overflow-hidden;
+    @apply bg-white text-2xl px-4 py-2 pb-1 text-center relative overflow-hidden tracking-tight;
 }
 
 .getting-started li:first-child {
-    @apply bg-[#69A8FF] cursor-pointer;
+    @apply bg-[#AFA0FF] cursor-pointer;
 }
 
 .getting-started li:nth-child(2) {
