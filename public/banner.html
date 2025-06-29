@@ -16,7 +16,7 @@
     body {
       margin: 0;
       padding: 0;
-      cursor: grabbing !important;
+      /* cursor: grabbing !important; */
       overflow: hidden;
     }
 
@@ -24,14 +24,14 @@
       display: block;
     }
 
-    div {
+    /* div {
       user-select: none;
       cursor: grabbing !important;
     }
 
     div:hover {
       cursor: grabbing !important;
-    }
+    } */
   </style>
   <meta charset="utf-8">
 
@@ -58,7 +58,7 @@
 
       for (let i = 0; i < words.length; i++) {
         let panel = createDiv(words[i]);
-        panel.draggable?.();
+        // panel.draggable();
 
         panel.style('padding', '24px 24px 0 24px');
         panel.style('font-family', 'Epilogue');

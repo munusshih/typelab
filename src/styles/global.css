@@ -3,7 +3,7 @@
 html,
 body {
     background: #EEEEEE;
-    @apply m-auto max-w-[1100px] w-full p-4;
+    @apply m-auto max-w-[1300px] w-full p-4;
 }
 
 a {
@@ -54,10 +54,26 @@ li:hover::before {
     transform: translateY(-100%);
 }
 
-li:hover {
+/* li:hover {
     @apply rounded-full;
-}
+} */
 
 a {
     @apply no-underline;
 }
+
+     .fw-sketch-frame {
+      position: absolute;
+      width: 395px;
+      height: 170px;
+      overflow: hidden;
+      cursor: grabbing;
+    }
+
+    .fw-sketch {
+      position: absolute;
+      left: -52%;
+      top: calc(-50% - 42px);
+      transform: scale(0.5);
+      pointer-events: none;
+    }
