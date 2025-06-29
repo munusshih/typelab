@@ -1,88 +1,85 @@
 ---
 import BasicLayout from "../layouts/BasicLayout.astro";
+import BackButton from "../components/BackButton.astro";
 ---
 
 <BasicLayout title="Free Write">
+  <BackButton />
 
-    <script>
+  <script>
     let sheetID = "1-rGe4Pay2CRDUrB7O4yqEvgaQsd2ePNPdxqOejpIjMM";
     let tabName = "Sheet1";
     let myURL = `https://opensheet.elk.sh/${sheetID}/${tabName}`;
-
 
     // let adjs = document.querySelectorAll(".adjective");
     // let nouns = document.querySelectorAll(".noun");
     // let verbs = document.querySelectorAll(".verb");
 
-async function getData() {
-  try {
-    const response = await fetch(myURL);
-    const data = await response.json();
+    async function getData() {
+      try {
+        const response = await fetch(myURL);
+        const data = await response.json();
 
-    for (let dataPoint of data) {
-      const frame = document.createElement("div");
-      frame.classList.add("fw-sketch-frame");
-      frame.style.position = "absolute";
+        for (let dataPoint of data) {
+          const frame = document.createElement("div");
+          frame.classList.add("fw-sketch-frame");
+          frame.style.position = "absolute";
 
-      const { left, top } = getRandomPosition();
-      frame.style.left = `${left}px`;
-      frame.style.top = `${top}px`;
+          const { left, top } = getRandomPosition();
+          frame.style.left = `${left}px`;
+          frame.style.top = `${top}px`;
 
-      const iframeElem = document.createElement("iframe");
-      iframeElem.classList.add("fw-sketch");
-      iframeElem.src = dataPoint.sketchLink;
-      iframeElem.width = "800";
-      iframeElem.height = "400";
+          const iframeElem = document.createElement("iframe");
+          iframeElem.classList.add("fw-sketch");
+          iframeElem.src = dataPoint.sketchLink;
+          iframeElem.width = "800";
+          iframeElem.height = "400";
 
-      frame.appendChild(iframeElem);
-      document.body.appendChild(frame);
+          frame.appendChild(iframeElem);
+          document.body.appendChild(frame);
 
-      let isDragging = false;
-      let offsetX = 0;
-      let offsetY = 0;
+          let isDragging = false;
+          let offsetX = 0;
+          let offsetY = 0;
 
-      frame.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        offsetX = e.clientX - frame.getBoundingClientRect().left;
-        offsetY = e.clientY - frame.getBoundingClientRect().top;
-        frame.style.zIndex = "1000";
-      });
+          frame.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - frame.getBoundingClientRect().left;
+            offsetY = e.clientY - frame.getBoundingClientRect().top;
+            frame.style.zIndex = "1000";
+          });
 
-      document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        frame.style.left = `${e.clientX - offsetX}px`;
-        frame.style.top = `${e.clientY - offsetY}px`;
-      });
+          document.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            frame.style.left = `${e.clientX - offsetX}px`;
+            frame.style.top = `${e.clientY - offsetY}px`;
+          });
 
-      document.addEventListener("mouseup", () => {
-        if (isDragging) {
-          isDragging = false;
-          frame.style.zIndex = "";
+          document.addEventListener("mouseup", () => {
+            if (isDragging) {
+              isDragging = false;
+              frame.style.zIndex = "";
+            }
+          });
         }
-      });
+      } catch (error) {
+        console.error(error);
+      }
     }
-  } catch (error) {
-    console.error(error);
-  }
-}
 
-getData();
+    getData();
 
+    function getRandomPosition() {
+      const frameWidth = window.innerWidth * 0.2743; // 27.43vw
+      const frameHeight = window.innerHeight * 0.1889; // 18.89vh
 
-function getRandomPosition() {
-  const frameWidth = window.innerWidth * 0.2743;  // 27.43vw
-  const frameHeight = window.innerHeight * 0.1889; // 18.89vh
+      const maxX = window.innerWidth - frameWidth;
+      const maxY = window.innerHeight - frameHeight;
 
-  const maxX = window.innerWidth - frameWidth;
-  const maxY = window.innerHeight - frameHeight;
+      const left = Math.random() * maxX;
+      const top = Math.random() * maxY;
 
-  const left = Math.random() * maxX;
-  const top = Math.random() * maxY;
-
-  return { left, top };
-}
-
-
+      return { left, top };
+    }
   </script>
-
 </BasicLayout>
